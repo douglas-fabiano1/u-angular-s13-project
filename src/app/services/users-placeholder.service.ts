@@ -13,6 +13,7 @@ export class UsersPlaceholderService {
     private readonly _httpClient: HttpClient
   ) { }
 
+  // tipar de acordo com o que é retornado do endpoint
   getUsersPlaceholder(): Observable<any> {
     return this._httpClient.get('https://jsonplaceholder.typicode.com/users');
   }
