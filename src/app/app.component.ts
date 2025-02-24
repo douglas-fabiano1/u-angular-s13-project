@@ -41,6 +41,10 @@ export class AppComponent implements OnInit {
     }
   }
 
+  showRealUser() {
+    console.log(this.usersList)
+  }
+
   private getStates() {
     this._brazilianStatesService.getStates().subscribe((statesListResponse) => {
       this.statesList = statesListResponse;
