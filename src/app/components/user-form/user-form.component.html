@@ -23,7 +23,9 @@
             name="usuario"
             matInput
             [(ngModel)]="userSelected.username"
+            [ngModelOptions]="{ updateOn: 'blur' }"
             #usernameControl="ngModel"
+            [appCredentialsValidator]="'username'"
             required
           />
           <mat-hint
@@ -31,6 +33,13 @@
           >
           <mat-error *ngIf="usernameControl.hasError('required')"
             >O <strong>Usuário</strong> é obrigatório.</mat-error
+          >
+          <mat-error
+            *ngIf="
+              usernameControl.hasError('invalidUsername') &&
+              !usernameControl.hasError('required')
+            "
+            >Este <strong>Usuário</strong> já está sendo utilizado.</mat-error
           >
         </mat-form-field>
         <mat-form-field class="user-form__item user-form__item-50">
@@ -41,8 +50,10 @@
             name="email"
             matInput
             [(ngModel)]="userSelected.email"
+            [ngModelOptions]="{ updateOn: 'blur' }"
             #emailControl="ngModel"
             appEmailPatternValidator
+            [appCredentialsValidator]="'email'"
             required
           />
           <!-- Outra forma de validar é usando o pattern="[a-zA-Z ]*" -->
@@ -56,6 +67,13 @@
               !emailControl.hasError('required')
             "
             >O <strong>Email</strong> é inválido.</mat-error
+          >
+          <mat-error
+            *ngIf="
+              emailControl.hasError('invalidEmail') &&
+              !usernameControl.hasError('required')
+            "
+            >Este <strong>Email</strong> já está sendo utilizado.</mat-error
           >
         </mat-form-field>
       </div>
