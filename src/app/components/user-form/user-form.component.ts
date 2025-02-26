@@ -9,20 +9,14 @@ import { getPasswordStrengthValue } from '../../utils/get-password-strength-valu
   templateUrl: './user-form.component.html',
   styleUrl: './user-form.component.scss'
 })
-export class UserFormComponent implements OnInit, OnChanges {
+export class UserFormComponent implements OnChanges {
   passwordStrengthValue = 0;
 
   @Input() genresList: GenresListResponse = [];
   @Input() statesList: StatesListResponse = [];
   @Input() userSelected: IUser = {} as IUser;
 
-  ngOnInit() {
-    // console.log('ngOnInit');
-  }
-
   ngOnChanges(changes: SimpleChanges) {
-    console.log('ngOnChanges', changes);
-
     const USER_CHANGED = changes['userSelected'];
 
     if (USER_CHANGED) {
