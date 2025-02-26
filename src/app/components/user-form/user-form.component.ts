@@ -2,6 +2,7 @@ import { Component, Input, OnChanges, OnInit, SimpleChanges } from '@angular/cor
 import { GenresListResponse } from '../../types/genres-list-response';
 import { StatesListResponse } from '../../types/states-list-response';
 import { IUser } from '../../interfaces/user/user.interface';
+import { getPasswordStrengthValue } from '../../utils/get-password-strength-value';
 
 @Component({
   selector: 'app-user-form',
@@ -9,7 +10,6 @@ import { IUser } from '../../interfaces/user/user.interface';
   styleUrl: './user-form.component.scss'
 })
 export class UserFormComponent implements OnInit, OnChanges {
-  // precisa receber a lista de gênero, lista de estados e usuário selecionado à partir do componente pai que implementa o app-user-form, no caso, o app.component.html
   passwordStrengthValue = 0;
 
   @Input() genresList: GenresListResponse = [];
@@ -17,21 +17,20 @@ export class UserFormComponent implements OnInit, OnChanges {
   @Input() userSelected: IUser = {} as IUser;
 
   ngOnInit() {
-    console.log('ngOnInit');
-    // console.log('genresList', this.genresList);
-    // console.log('statesList', this.statesList);
-    // console.log('userSelected', this.userSelected);
+    // console.log('ngOnInit');
   }
 
   ngOnChanges(changes: SimpleChanges) {
-    console.log('ngOnChanges');
-    console.log('changes', changes);
-    // console.log('genresList', this.genresList);
-    // console.log('statesList', this.statesList);
-    // console.log('userSelected', this.userSelected);
+    console.log('ngOnChanges', changes);
+
+    const USER_CHANGED = changes['userSelected'];
+
+    if (USER_CHANGED) {
+      this.onPasswordChange(this.userSelected.password);
+    }
   }
 
-  onPasswordChange(password: string){
+  onPasswordChange(password: string) {
     this.passwordStrengthValue = getPasswordStrengthValue(password);
   }
 }
