@@ -4,8 +4,6 @@ export const convertPtBrDateToDateObj = (date: string): Date | null => {
   }
   const [day, month, year] = date.split('/').map(Number);
 
-  console.log(day, month, year);
-
   if (isValidDate(day, month, year)) {
     return new Date(year, month - 1, day);
   }
