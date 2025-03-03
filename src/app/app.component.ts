@@ -6,6 +6,10 @@ import { UsersListResponse } from './types/users-list-response';
 import { GenresListResponse } from './types/genres-list-response';
 import { StatesListResponse } from './types/states-list-response';
 import { IUser } from './interfaces/user/user.interface';
+import { UserBeforeAndAfterDialogComponent } from './components/user-before-and-after-dialog/user-before-and-after-dialog.component';
+import {
+  MatDialog,
+} from '@angular/material/dialog';
 
 @Component({
   selector: 'app-root',
@@ -23,7 +27,8 @@ export class AppComponent implements OnInit {
   constructor(
     private readonly _usersService: UsersService,
     private readonly _genresService: GenresService,
-    private readonly _brazilianStatesService: BrazilianStatesService
+    private readonly _brazilianStatesService: BrazilianStatesService,
+    private readonly _matDialog: MatDialog,
   ) { }
 
   ngOnInit() {
@@ -43,6 +48,16 @@ export class AppComponent implements OnInit {
 
   showRealUser() {
     console.log(this.usersList)
+  }
+
+  onFormSubmit() {
+    this.openBeforeAndAfterDialog();
+  }
+
+  openBeforeAndAfterDialog() {
+    this._matDialog.open(UserBeforeAndAfterDialogComponent, {
+      minWidth: '70%',
+    })
   }
 
   private getStates() {
