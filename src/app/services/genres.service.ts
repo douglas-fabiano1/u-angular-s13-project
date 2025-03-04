@@ -37,7 +37,12 @@ export class GenresService {
         observer.complete();
       }, 3000);
     });
-
     // return of(this.genresList); Síncrono
+  }
+
+  getGenreDescription(genreId: number): string {
+    const genreDescription = this.genresList.find(genre => genre.id === genreId)?.description;
+
+    return genreDescription ? genreDescription : '';
   }
 }
