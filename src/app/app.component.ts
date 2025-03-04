@@ -46,10 +46,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  showRealUser() {
-    console.log(this.usersList)
-  }
-
   onFormSubmit() {
     if (this.userSelectedIndex === undefined) return;
 
