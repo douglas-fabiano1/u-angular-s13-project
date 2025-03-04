@@ -55,17 +55,33 @@ export class AppComponent implements OnInit {
 
     const originalUser = this.usersList[this.userSelectedIndex];
 
-    this.openBeforeAndAfterDialog(originalUser, this.userSelected);
+    this.openBeforeAndAfterDialog(originalUser, this.userSelected, this.userSelectedIndex);
   }
 
-  openBeforeAndAfterDialog(originalUser: IUser, updatedUser: IUser) {
-    this._matDialog.open(UserBeforeAndAfterDialogComponent, {
+  openBeforeAndAfterDialog(originalUser: IUser, updatedUser: IUser, userSelectedIndex: number) {
+    const dialogRef = this._matDialog.open(UserBeforeAndAfterDialogComponent, {
       data: {
         originalUser,
         updatedUser,
       },
       minWidth: '70%',
-    })
+    });
+
+    dialogRef.afterClosed().subscribe((result) => {
+      if (result) {
+        this.confirmUserUpdate(updatedUser, userSelectedIndex);
+      }
+    });
+  }
+
+  confirmUserUpdate(updatedUser: IUser, userSelectedIndex: number) {
+    this.usersList[userSelectedIndex] = structuredClone(updatedUser);
+
+    console.group('Alteração finalizada - Lista de usuários atualizada:');
+
+    console.log('Lista de usuários atual', this.usersList);
+
+    console.groupEnd();
   }
 
   private getStates() {
